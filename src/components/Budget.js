@@ -2,21 +2,28 @@ import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const Budget = () => {
-    const { currency, expenses, budget } = useContext(AppContext);
+    const { dispatch, currency, expenses, budget } = useContext(AppContext);
 
     const totalExpenses = expenses.reduce((total, item) => {
         return (total += item.cost);
     }, 0);
 
-    const setBudget = () => {
-        if (budget > 20000) {
+    const setBudget = (newBudget) => {
+        if (newBudget < totalExpenses) {
+            alert(`The value cannot be lower than the already allocated budget ${currency}${totalExpenses}`);
+        }
+        
+        if (newBudget <= 20000) {
+            // Dispatches a new event to the AppContext to change the budget.
+            dispatch({
+                type: "SET_BUDGET",
+                payload: newBudget,
+            });
+        } else {
             alert(`Budget cannot exceed ${currency}20000`);
         }
 
-        if (budget < totalExpenses) {
-            alert(`The value cannot be lower than the already allocated budget ${currency}${totalExpenses}`);
-        }
-    }
+    };
 
     return (
         <div className='alert alert-secondary'>
@@ -26,9 +33,10 @@ const Budget = () => {
                 type='number'
                 id='budget'
                 placeholder='Budget'
+                onInput="validity.valid||(value='');"
                 value={budget}
                 min='0'
-                onChange = {setBudget()}
+                onChange={(event) => setBudget(event.target.value)}
             >
             </input>
         </div>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const AllocationForm = (props) => {
-    const { dispatch, remaining } = useContext(AppContext);
+    const { dispatch, remaining, currency } = useContext(AppContext);
 
     const [name, setName] = useState('');
     const [cost, setCost] = useState('');
@@ -11,7 +11,7 @@ const AllocationForm = (props) => {
     const submitEvent = () => {
 
         if (cost > remaining) {
-            alert("The value cannot exceed remaining funds  £" + remaining);
+            alert(`The value cannot exceed remaining funds ${currency}${remaining}`);
             setCost("");
             return;
         }
@@ -43,12 +43,12 @@ const AllocationForm = (props) => {
                     </div>
                     <select className="custom-select" id="inputGroupSelect01" onChange={(event) => setName(event.target.value)}>
                         <option defaultValue>Choose...</option>
-                        <option value="Marketing" name="marketing"> Marketing</option>
-                        <option value="Sales" name="sales">Sales</option>
-                        <option value="Finance" name="finance">Finance</option>
-                        <option value="HR" name="hr">HR</option>
-                        <option value="IT" name="it">IT</option>
-                        <option value="Admin" name="admin">Admin</option>
+                        <option value="Marketing" name="Marketing"> Marketing</option>
+                        <option value="Sales" name="Sales">Sales</option>
+                        <option value="Finance" name="Finance">Finance</option>
+                        <option value="HR" name="HR">HR</option>
+                        <option value="IT" name="IT">IT</option>
+                        <option value="Admin" name="Admin">Admin</option>
                     </select>
 
                     <div className="input-group-prepend" style={{ marginLeft: '2rem' }}>
@@ -63,7 +63,10 @@ const AllocationForm = (props) => {
                         required='required'
                         type='number'
                         id='cost'
+                        placeholder='Budget to be allocated'
                         value={cost}
+                        min='0'
+                        onInput="validity.valid||(value='');"
                         style={{ marginLeft: '2rem', size: 10 }}
                         onChange={(event) => setCost(event.target.value)}>
                     </input>

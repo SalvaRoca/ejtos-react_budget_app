@@ -78,6 +78,7 @@ const AllocationForm = (props) => {
                         placeholder='Budget to be allocated'
                         value={cost}
                         min='0'
+                        step='10'
                         onInput="validity.valid||(value='');"
                         style={{ marginLeft: '0.1rem', size: 10 }}
                         onChange={(event) => setCost(event.target.value)}>

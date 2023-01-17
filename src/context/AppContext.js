@@ -61,16 +61,17 @@ export const AppReducer = (state, action) => {
                 budget
             };
         case 'SET_BUDGET':
-            // Introduce action code to modify budget
             action.type = "DONE";
-            state.budget = action.payload;
+            if (action.payload < state.remaining) {
+                state.budget = action.payload;
+            }
 
             return {
                 ...state,
             };
         case 'CHG_CURRENCY':
-            // Introduce action code to change currency
             action.type = "DONE";
+
             state.currency = action.payload;
             return {
                 ...state

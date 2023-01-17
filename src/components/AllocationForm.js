@@ -17,15 +17,16 @@ const AllocationForm = (props) => {
         }
 
         if (cost < 0) {
-            alert(`The value cannot be negative`);
+            alert(`The value cannot be negative.`);
             setCost("");
             return;
-        } 
+        }
 
         const expense = {
             name: name,
             cost: parseInt(cost),
         };
+        
         if (action === "Reduce") {
             dispatch({
                 type: 'RED_EXPENSE',
@@ -60,10 +61,15 @@ const AllocationForm = (props) => {
                     <div className="input-group-prepend" style={{ marginLeft: '2rem' }}>
                         <label className="input-group-text" htmlFor="inputGroupSelect02">Allocation</label>
                     </div>
+
                     <select className="custom-select" id="inputGroupSelect02" onChange={(event) => setAction(event.target.value)}>
                         <option defaultValue value="Add" name="Add">Add</option>
                         <option value="Reduce" name="Reduce">Reduce</option>
                     </select>
+
+                    <div className="input-group-prepend" style={{ marginLeft: '2rem' }}>
+                        <label className="input-group-text" htmlFor="inputGroupSelect03">{currency}</label>
+                    </div>
 
                     <input
                         required='required'
@@ -73,11 +79,11 @@ const AllocationForm = (props) => {
                         value={cost}
                         min='0'
                         onInput="validity.valid||(value='');"
-                        style={{ marginLeft: '2rem', size: 10 }}
+                        style={{ marginLeft: '0.1rem', size: 10 }}
                         onChange={(event) => setCost(event.target.value)}>
                     </input>
 
-                    <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: '2rem' }}>
+                    <button className="btn btn-primary" onClick={submitEvent} >
                         Save
                     </button>
                 </div>

@@ -35,7 +35,9 @@ const Budget = () => {
                 placeholder='Budget'
                 onInput="validity.valid||(value='');"
                 value={budget}
-                min='0'
+                min={totalExpenses}
+                max='20000'
+                step='10'
                 onChange={(event) => setBudget(event.target.value)}
             >
             </input>

@@ -26,7 +26,7 @@ export const AppReducer = (state, action) => {
                     ...state,
                 };
             } else {
-                alert("Cannot increase the allocation! Out of funds");
+                alert("Cannot increase the allocation, out of funds!");
                 return {
                     ...state
                 }
@@ -36,6 +36,8 @@ export const AppReducer = (state, action) => {
                 if (currentExp.name === action.payload.name && currentExp.cost - action.payload.cost >= 0) {
                     currentExp.cost = currentExp.cost - action.payload.cost;
                     budget = state.budget + action.payload.cost
+                } else if (currentExp.name === action.payload.name) {
+                    alert(`The value indicated is below the allocated budget for ${action.payload.name}.`);
                 }
                 return currentExp
             })
